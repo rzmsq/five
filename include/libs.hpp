@@ -31,6 +31,13 @@ enum moveCode
     RAND
 };
 
+enum figureCode
+{
+    CIRCLE,
+    RECT,
+    ALL
+};
+
 inline int rand_int(const int &from, const int &to)
 {
     std::random_device rd;

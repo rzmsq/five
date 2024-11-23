@@ -133,7 +133,7 @@ const void add_figure()
     }
 }
 
-const void mouse_button_left_process(SDL_Renderer *renderer)
+const void mouse_button_left_process(SDL_Renderer *renderer, const int &figCod)
 {
     if (settingBtn[ind::settBtn::menu]->is_pressed())
     {
@@ -154,7 +154,7 @@ const void mouse_button_left_process(SDL_Renderer *renderer)
     else if (settingBtn[ind::settBtn::add]->is_pressed())
         add_figure();
     else if (settingBtn[ind::settBtn::move]->is_pressed())
-        move_all_figure(moveCode::RAND);
+        move_all_figure(moveCode::RAND, figCod);
     else if (settingBtn[ind::settBtn::remove]->is_pressed())
         remove_figure();
     else if (settingBtn[ind::settBtn::erase]->is_pressed())
@@ -165,7 +165,7 @@ const void mouse_button_left_process(SDL_Renderer *renderer)
     draw_figure_menu(renderer);
 }
 
-const void move_all_figure(const char &direction)
+const void move_all_figure(const char &direction, const int &figCod)
 {
     switch (codeB)
     {
@@ -187,7 +187,32 @@ const void move_all_figure(const char &direction)
         break;
     case codes::codeBtn::array:
         for (auto &&figure : figures)
-            figure->move(direction);
+        {
+            switch (figCod)
+            {
+            case figureCode::CIRCLE:
+            {
+                if (dynamic_cast<Circle *>(figure))
+                {
+                    Circle *crc = dynamic_cast<Circle *>(figure);
+                    crc->move(direction);
+                }
+                break;
+            }
+            case figureCode::RECT:
+            {
+                if (dynamic_cast<Rect *>(figure))
+                {
+                    Rect *rct = dynamic_cast<Rect *>(figure);
+                    rct->move(direction);
+                }
+                break;
+            }
+            default:
+                figure->move(direction);
+                break;
+            }
+        }
         break;
     }
 }
@@ -249,32 +274,38 @@ const void increase_radius()
 {
     if (codeB == codes::codeBtn::circle && circs.size() > 0)
         for (auto &&circle : circs)
-            circle.change_rad(5, true);
+            circle.change_size(5, true);
     if (codeB == codes::codeBtn::rect && rects.size() > 0)
         for (auto &&rect : rects)
             rect.change_size(5, true);
     if (codeB == codes::codeBtn::ellipse && ellps.size() > 0)
         for (auto &&ellips : ellps)
-            ellips.change_rad(6, 3, true);
+            ellips.change_size(6, true);
     if (codeB == codes::codeBtn::trapezoid && trapezs.size() > 0)
         for (auto &&trapz : trapezs)
             trapz.change_size(5, true);
+    if (codeB == codes::codeBtn::array && figures.size() > 0)
+        for (auto &&figure : figures)
+            figure->change_size(6, true);
 }
 
 const void reduce_radius()
 {
     if (codeB == codes::codeBtn::circle && circs.size() > 0)
         for (auto &&circle : circs)
-            circle.change_rad(-5, false);
+            circle.change_size(-5, false);
     if (codeB == codes::codeBtn::rect && rects.size() > 0)
         for (auto &&rect : rects)
             rect.change_size(-5, false);
     if (codeB == codes::codeBtn::ellipse && ellps.size() > 0)
         for (auto &&ellips : ellps)
-            ellips.change_rad(-6, -3, false);
+            ellips.change_size(-6, false);
     if (codeB == codes::codeBtn::trapezoid && trapezs.size() > 0)
         for (auto &&trapz : trapezs)
             trapz.change_size(-5, false);
+    if (codeB == codes::codeBtn::array && figures.size() > 0)
+        for (auto &&figure : figures)
+            figure->change_size(-6, false);
 }
 
 const void rotate()
@@ -282,6 +313,13 @@ const void rotate()
     if (codeB == codes::codeBtn::ellipse && ellps.size() > 0)
         for (auto &&ellips : ellps)
             ellips.rotate();
+    else if (codeB == codes::codeBtn::array && figures.size() > 0)
+        for (auto &&figure : figures)
+            if (dynamic_cast<Ellips *>(figure))
+            {
+                Ellips *elp = dynamic_cast<Ellips *>(figure);
+                elp->rotate();
+            }
 }
 
 const void draw_all_figures(SDL_Renderer *renderer)

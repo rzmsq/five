@@ -10,8 +10,8 @@
 const void draw_main_menu(SDL_Renderer *renderer);
 const void draw_figure_menu(SDL_Renderer *renderer);
 const void add_figure();
-const void mouse_button_left_process(SDL_Renderer *renderer);
-const void move_all_figure(const char &direction);
+const void mouse_button_left_process(SDL_Renderer *renderer, const int &figCod = figureCode::ALL);
+const void move_all_figure(const char &direction, const int &figCod = figureCode::ALL);
 const void erase_figure(SDL_Renderer *renderer);
 const void remove_figure();
 const void increase_radius();

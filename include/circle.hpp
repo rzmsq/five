@@ -16,5 +16,5 @@ public:
     Circle();
 
     virtual const void show(SDL_Renderer *_renderer) override;
-    const void change_rad(const int &_rad, const bool &_flg);
+    const void change_size(const int &_rad, const bool &_flg) override;
 };

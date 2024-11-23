@@ -23,6 +23,7 @@ int main(int argc, char *args[])
 
             SDL_Event e;
             bool quit{false};
+            int figCod = figureCode::ALL;
             while (quit == false)
             {
                 while (SDL_PollEvent(&e))
@@ -34,12 +35,21 @@ int main(int argc, char *args[])
                         break;
                     case SDL_MOUSEBUTTONDOWN:
                         if (e.button.button == SDL_BUTTON_LEFT)
-                            mouse_button_left_process(renderer);
+                            mouse_button_left_process(renderer, figCod);
                         break;
                     case SDL_KEYDOWN:
                     {
                         switch (e.key.keysym.sym)
                         {
+                        case SDLK_1:
+                            figCod = figureCode::CIRCLE;
+                            break;
+                        case SDLK_2:
+                            figCod = figureCode::RECT;
+                            break;
+                        case SDLK_3:
+                            figCod = figureCode::ALL;
+                            break;
                         case SDLK_KP_PLUS:
                         {
                             increase_radius();
@@ -60,25 +70,25 @@ int main(int argc, char *args[])
                         }
                         case SDLK_RIGHT:
                         {
-                            move_all_figure(moveCode::RIGHT);
+                            move_all_figure(moveCode::RIGHT, figCod);
                             draw_figure_menu(renderer);
                             break;
                         }
                         case SDLK_LEFT:
                         {
-                            move_all_figure(moveCode::LEFT);
+                            move_all_figure(moveCode::LEFT, figCod);
                             draw_figure_menu(renderer);
                             break;
                         }
                         case SDLK_UP:
                         {
-                            move_all_figure(moveCode::UP);
+                            move_all_figure(moveCode::UP, figCod);
                             draw_figure_menu(renderer);
                             break;
                         }
                         case SDLK_DOWN:
                         {
-                            move_all_figure(moveCode::DOWN);
+                            move_all_figure(moveCode::DOWN, figCod);
                             draw_figure_menu(renderer);
                             break;
                         }

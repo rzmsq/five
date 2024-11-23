@@ -24,12 +24,12 @@ const void Ellips::show(SDL_Renderer *renderer)
                       rx, ry, r, g, b, a);
 }
 
-const void Ellips::change_rad(const int &_rx, const int &_ry, const bool &_flg)
+const void Ellips::change_size(const int &_rad, const bool &_flg)
 {
     if (!this->is_out_of_rad(_flg))
     {
-        this->rx += _rx;
-        this->ry += _ry;
+        this->rx += _rad;
+        this->ry += _rad / 2;
     }
 }
 

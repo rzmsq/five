@@ -30,6 +30,7 @@ protected:
 public:
     TFigure() { std::cout << "parent\n"; };
     virtual const void show(SDL_Renderer *_renderer) = 0;
+    virtual const void change_size(const int &_unit, const bool &_flg) = 0;
     const void move(const char &direction)
     {
         const std::pair<int, int> pdx = pointDX(direction);

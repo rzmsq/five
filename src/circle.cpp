@@ -21,7 +21,7 @@ const void Circle::show(SDL_Renderer *_renderer)
     circleRGBA(_renderer, this->_point.get_x(), this->_point.get_y(), rad, r, g, b, a);
 }
 
-const void Circle::change_rad(const int &_rad, const bool &_flg)
+const void Circle::change_size(const int &_rad, const bool &_flg)
 {
     if (!is_out_of_rad(_flg))
         this->rad += _rad;

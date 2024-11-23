@@ -21,5 +21,5 @@ public:
                   const int &_r, const int &_g, const int &_b, const int &_a);
 
     virtual const void show(SDL_Renderer *_renderer) override;
-    const void change_size(const int &_rad, const bool &_flg);
+    const void change_size(const int &_size, const bool &_flg) override;
 };
